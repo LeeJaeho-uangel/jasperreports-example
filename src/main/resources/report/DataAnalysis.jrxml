@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DataAnalysisReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb7dc784-4bcd-43f0-8c37-f1d90acf13ab">
+    <subDataset name="errSensorAlarmStatusDataset" uuid="4dcaaa70-7e2e-4dc6-89b4-27fa7ee5bc25">
+        <field name="sensorNumber" class="java.lang.Long"/>
+        <field name="sensorName" class="java.lang.String"/>
+        <field name="errDate" class="java.lang.String"/>
+        <field name="alarmCount" class="java.lang.Integer"/>
+    </subDataset>
+    <subDataset name="chartDataset" uuid="df7ad2c1-09f3-4e95-a43e-db64c6d13a8c">
+        <field name="id" class="java.lang.Long"/>
+        <field name="sq" class="java.lang.Integer"/>
+        <field name="name" class="java.lang.String"/>
+        <field name="val" class="java.lang.Integer"/>
+    </subDataset>
+    <subDataset name="pieDataset" uuid="b9d34af7-376c-4879-bbde-e9b4f3b33eca">
+        <field name="key" class="java.lang.String"/>
+        <field name="value" class="java.lang.Integer"/>
+    </subDataset>
+
+    <parameter name="chartDatasource" class="java.util.List"/>
+    <parameter name="errStatusDatasource" class="java.util.List"/>
+    <parameter name="pieDatasource" class="java.util.List"/>
+
+    <parameter name="shipType" class="java.lang.String"/>
+    <parameter name="shipName" class="java.lang.String"/>
+    <parameter name="equipmentName" class="java.lang.String"/>
+    <parameter name="equipmentCode" class="java.lang.String"/>
+    <parameter name="equipmentRunningTime" class="java.lang.String"/>
+    <parameter name="reporter" class="java.lang.String"/>
+    <parameter name="analysisPeriod" class="java.lang.String"/>
+    <parameter name="statusBasedReportNumber" class="java.lang.String"/>
+
+    <parameter name="errStatusDesc" class="java.lang.String"/>
+    <parameter name="analysisResult" class="java.lang.String"/>
+    <parameter name="fyi" class="java.lang.String"/>
+
+    <parameter name="remoteDate" class="java.lang.String"/>
+    <parameter name="supportDepartment" class="java.lang.String"/>
+    <parameter name="supportDesc" class="java.lang.String"/>
+    <parameter name="supportResult" class="java.lang.String"/>
+    <parameter name="supportYn" class="java.lang.String"/>
+
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+
+    <title>
+        <band height="37" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="1" width="555" height="30" uuid="67484b31-da3c-46aa-b304-5fde9b207a5c"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="14"/>
+                </textElement>
+                <text><![CDATA[데이터 분석 보고서]]></text>
+            </staticText>
+        </band>
+    </title>
+    <detail>
+        <band height="140">
+            <staticText>
+                <reportElement x="0" y="0" width="100" height="20" uuid="414912b1-a19b-4b1d-ae72-29de1bfd331e"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ함형 :]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="100" y="40" width="180" height="20" uuid="176d0ab8-bec9-41d4-a6d1-6782ed7f5534"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{equipmentRunningTime}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="280" y="0" width="140" height="20" uuid="5d06cda0-dade-4e01-98f5-cdb8b6efdda6"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ함정명 :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="120" width="210" height="20" uuid="3826725a-d32e-47ac-a980-f92d3268b9b5"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[이상 탐지 기간]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="40" width="140" height="20" uuid="111e077a-ba05-4512-82bf-a3a3ec06fc7b"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ보고서 작성자 :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="60" width="100" height="20" uuid="4da3c0c2-f000-404b-83cf-b5b15cf7d873"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ분석 기간 □~□ :]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="100" y="60" width="180" height="20" uuid="53c71ba1-457f-481d-9c20-2544cf505432"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{analysisPeriod}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="20" width="100" height="20" uuid="0d7565f7-44d5-4d07-bcf5-b527c46364f3"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ장비명 :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="130" y="120" width="150" height="20" uuid="0f04d269-73d6-420a-a00f-8b3d0a3b238d"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[센서명]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="420" y="0" width="134" height="20" uuid="129d6e10-7a5b-4c6b-ab7a-0912ad135211"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{shipName}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="40" width="100" height="20" uuid="3ea724d7-e6a7-451f-b767-1dcc919b3365"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ장비작동 시간 :]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="100" y="20" width="180" height="20" uuid="b020b7df-bc0d-4441-8b2a-2e8315d57fe8"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{equipmentName}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="280" y="60" width="140" height="20" uuid="34d3c726-980a-4e24-9176-d992ff5d8d02"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ상태기반정비보고서 번호 :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="490" y="120" width="64" height="20" uuid="962ec4e7-d4a6-4eff-b3b4-9cefd12c8b25"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[알람횟수]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="420" y="20" width="134" height="20" uuid="50651302-2a37-4901-8e2e-b9f77f787776"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{equipmentCode}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="420" y="60" width="134" height="20" uuid="cec92823-aef1-4eea-8053-84e829ee57e0"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{statusBasedReportNumber}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="100" width="280" height="20" uuid="08bd5aa1-fc7d-4805-926c-9c6db044518e"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ이상현상 탐지 센서 및 알람 현황]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="420" y="40" width="134" height="20" uuid="dc1b9837-36c4-4729-97b7-59d2396a4269"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{reporter}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="280" y="20" width="140" height="20" uuid="ee5eb403-aecb-4271-8311-4136ac6db1d9"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ장비코드 :]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="100" y="0" width="180" height="20" uuid="9f1a93ec-3d12-4a87-96dd-7ee7a6a60ef7"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{shipType}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="120" width="130" height="20" uuid="c57fd435-e17a-4865-8f2a-c8eb4758276f"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[센서번호]]></text>
+            </staticText>
+        </band>
+        <band height="20" splitType="Stretch">
+            <componentElement>
+                <reportElement x="0" y="0" width="554" height="20" uuid="1b6135bf-9096-4cb6-a67c-06e3e39161a5"/>
+                <jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+                    <datasetRun subDataset="errSensorAlarmStatusDataset" uuid="0621da27-3993-46b4-b98a-8864d2766940">
+                        <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{errStatusDatasource})]]></dataSourceExpression>
+                    </datasetRun>
+                    <jr:listContents height="20" width="554">
+                        <textField>
+                            <reportElement x="0" y="0" width="130" height="20" uuid="86d62781-3313-44dd-81c0-a10d97a9dac6"/>
+                            <box>
+                                <pen lineWidth="0.5"/>
+                            </box>
+                            <textElement textAlignment="Center" verticalAlignment="Middle">
+                                <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[$F{sensorNumber}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement x="280" y="0" width="210" height="20" uuid="c461823e-0f32-4ef5-be71-f3cfe64543f6"/>
+                            <box>
+                                <pen lineWidth="0.5"/>
+                            </box>
+                            <textElement textAlignment="Center" verticalAlignment="Middle">
+                                <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[$F{errDate}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement x="490" y="0" width="64" height="20" uuid="380684cd-0eae-442d-a0ce-90a45df9997c"/>
+                            <box>
+                                <pen lineWidth="0.5"/>
+                            </box>
+                            <textElement textAlignment="Center" verticalAlignment="Middle">
+                                <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[$F{alarmCount}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement x="130" y="0" width="150" height="20" uuid="e893ff14-b508-424e-b0e3-6212f98c8e53"/>
+                            <box>
+                                <pen lineWidth="0.5"/>
+                            </box>
+                            <textElement textAlignment="Center" verticalAlignment="Middle">
+                                <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[$F{sensorName}]]></textFieldExpression>
+                        </textField>
+                    </jr:listContents>
+                </jr:list>
+            </componentElement>
+        </band>
+        <band height="89">
+            <staticText>
+                <reportElement x="0" y="9" width="280" height="20" uuid="f0cc05ad-82e1-447f-81ac-312b333b438d"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ이상 현상 내용]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="33" width="554" height="20" uuid="bfc47b9e-3bb7-4ada-98e1-335f11f975ce"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[이상 현상 내용]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="0" y="53" width="554" height="36" uuid="de563e5e-3b05-4794-aab2-2a4cb51e569a"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{errStatusDesc}]]></textFieldExpression>
+            </textField>
+        </band>
+        <band height="362">
+            <staticText>
+                <reportElement x="0" y="11" width="280" height="20" uuid="c855e289-6fdc-471f-91aa-90cd39a5adad"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ데이터 분석]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="37" width="280" height="20" uuid="c1801ec4-5793-4e5b-a270-944e2f346c88"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[차트]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="37" width="274" height="20" uuid="84bdd43d-e2e6-46c5-aa01-ac663d80afe9"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[머신러닝]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="199" width="280" height="20" uuid="80f05e7b-37fb-4332-a658-1f98de689c89"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[통계학적 기법]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="199" width="274" height="20" uuid="690a583a-d384-48e5-b69a-0ddee69920eb"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[원제작사]]></text>
+            </staticText>
+            <lineChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="0" y="57" width="280" height="142" uuid="f8f91214-a293-4270-8804-f82a8f021ee4"/>
+                    <box>
+                        <pen lineWidth="0.5"/>
+                    </box>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <dataset resetType="Report">
+                        <datasetRun subDataset="chartDataset" uuid="904eea2f-66db-463c-bef1-8e664186e546">
+                            <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{chartDatasource})]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <categorySeries>
+                        <seriesExpression><![CDATA[$F{name}]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{sq}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{val}]]></valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <linePlot>
+                    <plot/>
+                    <categoryAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </valueAxisFormat>
+                </linePlot>
+            </lineChart>
+            <lineChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="280" y="57" width="274" height="142" uuid="39ce50c8-deae-4a8a-ab7f-e3a49030f8d1"/>
+                    <box>
+                        <pen lineWidth="0.5"/>
+                    </box>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <dataset resetType="Report">
+                        <datasetRun subDataset="chartDataset" uuid="904eea2f-66db-463c-bef1-8e664186e512">
+                            <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{chartDatasource})]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <categorySeries>
+                        <seriesExpression><![CDATA[$F{name}]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{sq}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{val}]]></valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <linePlot>
+                    <plot/>
+                    <categoryAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </valueAxisFormat>
+                </linePlot>
+            </lineChart>
+            <lineChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="280" y="219" width="274" height="142" uuid="e8b03d41-54be-44d0-8f5c-e82aca2506b8"/>
+                    <box>
+                        <pen lineWidth="0.5"/>
+                    </box>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <dataset resetType="Report">
+                        <datasetRun subDataset="chartDataset" uuid="904eea2f-66db-463c-bef1-8e664186e513">
+                            <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{chartDatasource})]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <categorySeries>
+                        <seriesExpression><![CDATA[$F{name}]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{sq}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{val}]]></valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <linePlot>
+                    <plot/>
+                    <categoryAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </valueAxisFormat>
+                </linePlot>
+            </lineChart>
+            <lineChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="0" y="219" width="280" height="142" uuid="83173d79-6694-49f1-b947-33e2239c1a74"/>
+                    <box>
+                        <pen lineWidth="0.5"/>
+                    </box>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <dataset resetType="Report">
+                        <datasetRun subDataset="chartDataset" uuid="904eea2f-66db-463c-bef1-8e664126e546">
+                            <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{chartDatasource})]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <categorySeries>
+                        <seriesExpression><![CDATA[$F{name}]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{sq}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{val}]]></valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <linePlot>
+                    <plot/>
+                    <categoryAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </valueAxisFormat>
+                </linePlot>
+            </lineChart>
+        </band>
+        <band height="253">
+            <staticText>
+                <reportElement x="0" y="8" width="554" height="20" uuid="fba11b14-68cc-4904-9da2-7f9a8779c86f"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ상관 관계 분석(주 이상현상 탐지된 센서와 상관관계 있는 센서 간 분석]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="33" width="554" height="20" uuid="085985bd-f78d-4cba-b8a8-25b92c76770c"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[장비별 상관 관계 분석]]></text>
+            </staticText>
+            <pieChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="0" y="53" width="554" height="200" uuid="ea0c3eca-ed7b-47b9-b270-96c306d10c27"/>
+                    <box>
+                        <pen lineWidth="0.5"/>
+                    </box>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <pieDataset>
+                    <dataset resetType="Report">
+                        <datasetRun subDataset="pieDataset" uuid="c45ea228-04df-4f90-bfae-bdae0818bc6b">
+                            <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{pieDatasource})]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <keyExpression><![CDATA[$F{key}]]></keyExpression>
+                    <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                </pieDataset>
+                <piePlot isCircular="true" labelFormat="{0} {1} ({2})" legendLabelFormat="">
+                    <plot/>
+                    <itemLabel/>
+                </piePlot>
+            </pieChart>
+        </band>
+        <band height="99">
+            <staticText>
+                <reportElement x="0" y="9" width="280" height="20" uuid="cb7e486b-7318-4ca8-babc-459ab7db139c"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ분석 결과]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="33" width="554" height="20" uuid="729fb5f2-b896-42c2-8861-5366fc594421"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[분석 결과]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="0" y="53" width="554" height="46" uuid="837262c6-2fd5-4522-87de-d1c52241ebbf"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{analysisResult}]]></textFieldExpression>
+            </textField>
+        </band>
+        <band height="79">
+            <textField>
+                <reportElement x="0" y="33" width="554" height="46" uuid="4baed53e-9419-4cf1-b549-5834302ea184"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{fyi}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="9" width="554" height="20" uuid="31215cca-1cd9-48a8-9746-d283e6b7dcb4"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ참고 내용 (상태기반정비보고서, 고장 이력 보고서 내용 참고 작성)]]></text>
+            </staticText>
+        </band>
+        <band height="99">
+            <staticText>
+                <reportElement x="0" y="15" width="554" height="20" forecolor="#FF0703" uuid="08819929-b27c-42e9-8e04-696e4eb37afa"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ㆍ원격정비지원체계 운용 결과 ( * 원격정비 지원이 필요할 때 사용)]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="35" width="100" height="34" forecolor="#FF0703" uuid="926a5c03-5502-4cb1-a0f0-e6ff56c1d393"/>
+                <box>
+                    <pen lineWidth="0.5" lineColor="#030303"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[원격지원일시]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="100" y="35" width="80" height="34" forecolor="#FF0703" uuid="e2c85de9-3dc6-432e-a34f-47f471016ff5"/>
+                <box>
+                    <pen lineWidth="0.5" lineColor="#030303"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[지원부서]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="180" y="35" width="140" height="34" forecolor="#FF0703" uuid="51380882-51e8-4218-ac7e-860b8142b4a3"/>
+                <box>
+                    <pen lineWidth="0.5" lineColor="#030303"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[지원내용]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="460" y="35" width="94" height="34" forecolor="#FF0703" uuid="d3f8cde3-1be4-4a2c-b8af-812e0bf58963"/>
+                <box>
+                    <pen lineWidth="0.5" lineColor="#030303"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[이동정비
+지원여부]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="320" y="35" width="140" height="34" forecolor="#FF0703" uuid="d0bbfca5-0bf1-4b4d-8dbc-33d4c1425a1e"/>
+                <box>
+                    <pen lineWidth="0.5" lineColor="#030303"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[지원결과]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="0" y="69" width="100" height="30" uuid="eb7d52a6-d107-40ee-9777-5b462907efb4"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{remoteDate}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="100" y="69" width="80" height="30" uuid="dba65c4a-2591-4046-80c6-ab5c05544ee4"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{supportDepartment}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="180" y="69" width="140" height="30" uuid="55d2f790-f405-42a9-a01d-5afa011f7a8b"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{supportDesc}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="320" y="69" width="140" height="30" uuid="bc1a6403-404c-423c-9a91-6229c63b2f91"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{supportResult}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="460" y="69" width="94" height="30" uuid="cbe07ca2-b106-4b11-aff6-e17efd268457"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{supportYn}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <noData>
+        <band height="32">
+            <staticText>
+                <reportElement x="0" y="1" width="555" height="30" uuid="6f4b6623-7266-4317-8261-de11f7c59a4f"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="14"/>
+                </textElement>
+                <text><![CDATA[데이터가 없습니다.]]></text>
+            </staticText>
+        </band>
+    </noData>
+</jasperReport>

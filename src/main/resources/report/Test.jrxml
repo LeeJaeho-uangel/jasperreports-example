@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Test" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3f6ad802-2cdf-4c56-8449-a3adb8dd9353">
+    <!--  Dataset / Parameter 설정 영역  -->
+    <!--  List와 Chart에서 사용할 Dataset을 생성한 Entity or DTO에 맞게 정의  -->
+    <subDataset name="listDataset" uuid="ac6336a6-8ff4-41b7-a819-1dfc6af64d5d">
+        <field name="key" class="java.lang.Integer"/>
+        <field name="value" class="java.lang.String"/>
+    </subDataset>
+    <subDataset name="chartDataset" uuid="e81f3945-eea3-45c0-9222-03a6dc84f61f">
+        <field name="id" class="java.lang.Long"/>
+        <field name="sq" class="java.lang.Integer"/>
+        <field name="name" class="java.lang.String"/>
+        <field name="val" class="java.lang.Integer"/>
+    </subDataset>
+    <!--  파라미터에 담았던 Datasource  -->
+    <parameter name="listDatasource" class="java.util.List"/>
+    <parameter name="chartDatasource" class="java.util.List"/>
+
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+
+    <!--  뷰 영역  -->
+
+    <title>
+        <band height="67" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="20" width="555" height="42" uuid="5615e9d1-55f6-4a89-8dc5-860c776f680c"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="22" isBold="true"/>
+                </textElement>
+                <text><![CDATA[샘플 타이틀]]></text>
+            </staticText>
+        </band>
+    </title>
+
+
+    <detail>
+        <!--   Detail 1 : Header   -->
+        <band height="62" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="20" width="555" height="42" uuid="4babe52b-dc9c-4dc6-aa0c-d1293cc09b30"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="14" isBold="true"/>
+                </textElement>
+                <text><![CDATA[해더]]></text>
+            </staticText>
+        </band>
+
+        <!--   Detail 2 : List   -->
+        <band height="30">
+            <componentElement>
+                <reportElement x="0" y="0" width="555" height="30" uuid="853bc30e-e834-45a0-ba51-4ffc246905b9"/>
+                <jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+                    <!--  Dataset 지정  -->
+                    <datasetRun subDataset="listDataset" uuid="7f37a8eb-6ebc-441c-a2d8-6f0b2efdb699">
+                        <!--  Parameter로 넘겼던 Datasource를 지정  -->
+                        <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{listDatasource})]]></dataSourceExpression>
+                    </datasetRun>
+                    <jr:listContents height="30" width="555">
+                        <textField>
+                            <reportElement x="0" y="0" width="280" height="30" uuid="90a3ee3b-80b7-4f64-a4cb-5b68d3f46edc"/>
+                            <box>
+                                <pen lineWidth="0.5"/>
+                            </box>
+                            <textElement textAlignment="Center" verticalAlignment="Middle">
+                                <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="12"/>
+                            </textElement>
+                            <!--  필드명 변경  -->
+                            <textFieldExpression><![CDATA[$F{key}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement x="280" y="0" width="275" height="30" uuid="5f3e9e32-29c7-4511-8e5a-96d13d58fc22"/>
+                            <box>
+                                <pen lineWidth="0.5"/>
+                            </box>
+                            <textElement textAlignment="Center" verticalAlignment="Middle">
+                                <font pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="12"/>
+                            </textElement>
+                            <!--  필드명 변경  -->
+                            <textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+                        </textField>
+                    </jr:listContents>
+                </jr:list>
+            </componentElement>
+        </band>
+
+        <!--   Detail 3: Chart   -->
+        <band height="337">
+            <lineChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="0" y="10" width="555" height="327" uuid="cf0fb17e-aaeb-42b0-aab2-7f48156e37d4"/>
+                    <box padding="0">
+                        <pen lineWidth="0.5"/>
+                    </box>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <!--  Dataset 지정  -->
+                    <dataset resetType="Report">
+                        <!--  Parameter로 넘겼던 Datasource를 지정  -->
+                        <datasetRun subDataset="chartDataset" uuid="904eea2f-66db-463c-bef1-8e664086e546">
+                            <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{chartDatasource})]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <categorySeries>
+                        <!--  X축 필드명 변경  -->
+                        <seriesExpression><![CDATA[$F{name}]]></seriesExpression>
+                        <!--  카테고리 필드명 변경  -->
+                        <categoryExpression><![CDATA[$F{sq}]]></categoryExpression>
+                        <!--  Y축 필드명 변경  -->
+                        <valueExpression><![CDATA[$F{val}]]></valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <linePlot>
+                    <plot/>
+                    <categoryAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </valueAxisFormat>
+                </linePlot>
+            </lineChart>
+        </band>
+    </detail>
+</jasperReport>

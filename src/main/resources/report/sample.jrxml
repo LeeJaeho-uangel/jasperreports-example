@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportTest" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6f73ef28-4d5b-4180-85e2-f94602d8dd80">
+    <subDataset name="infoDataset" uuid="d83d36ad-06e5-43cf-a60e-ace15a2ad730">
+        <field name="id" class="java.lang.Long"/>
+        <field name="shipNumber" class="java.lang.String"/>
+        <field name="shipName" class="java.lang.String"/>
+        <field name="desc" class="java.lang.String"/>
+    </subDataset>
+    <subDataset name="chartDataset" uuid="45cc852e-2650-422a-aa76-83d4cb793997">
+        <field name="id" class="java.lang.Long"/>
+        <field name="sq" class="java.lang.Integer"/>
+        <field name="name" class="java.lang.String"/>
+        <field name="val" class="java.lang.Integer"/>
+    </subDataset>
+    <parameter name="title" class="java.lang.String"/>
+    <parameter name="infoDatasource" class="java.util.List"/>
+    <parameter name="chartDatasource" class="java.util.List"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="79" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="24" width="555" height="30" uuid="c4996b89-c615-4997-8ced-20c81249e2e2"/>
+                <textElement textAlignment="Center">
+                    <font size="20" pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="35">
+            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+            <staticText>
+                <reportElement x="0" y="0" width="141" height="35" uuid="3bdd629b-ad9b-490c-b04b-86c43229d5be">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="97ccb60c-7d56-47db-bfb6-c8e8a407da67"/>
+                </reportElement>
+                <box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Justified">
+                    <font isBold="true" pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ID]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="141" y="0" width="138" height="35" uuid="790d4d45-6450-42e6-8c3e-f95e5d6c5e99">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9de178b5-3262-4af3-a248-3c2355777421"/>
+                </reportElement>
+                <box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Justified">
+                    <font isBold="true" pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[Ship Number]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="279" y="0" width="138" height="35" uuid="ca969606-0a6a-4e7f-b004-16ac68c30e39">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8c70ae9a-cae6-49e9-a147-cc5f50b7bf06"/>
+                </reportElement>
+                <box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Justified">
+                    <font isBold="true" pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[Ship Name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="417" y="0" width="138" height="35" uuid="5fc07c65-a587-473c-bbf0-2d8a3f2b67d7">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5fbb55d6-03f2-4810-baa4-c03b1cc7a079"/>
+                </reportElement>
+                <box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Justified">
+                    <font isBold="true" pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[Description]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="54" splitType="Stretch">
+            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+            <componentElement>
+                <reportElement x="0" y="0" width="555" height="40" uuid="8f8d0a09-cdfa-4ad7-a71e-83ff6f1d3984">
+                    <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+                </reportElement>
+                <jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+                    <datasetRun subDataset="infoDataset" uuid="7f37a8eb-6ebc-441c-a2d8-6f0b2efdb699">
+                        <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{infoDatasource})]]></dataSourceExpression>
+                    </datasetRun>
+                    <jr:listContents height="40" width="555">
+                        <textField>
+                            <reportElement x="0" y="0" width="141" height="40" uuid="befa3e2a-6fa8-4b5a-abf0-4447fb6eea16"/>
+                            <box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+                                <pen lineWidth="0.5"/>
+                                <topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+                                <leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+                                <bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+                                <rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+                            </box>
+                            <textElement textAlignment="Center" verticalAlignment="Justified">
+                                <font size="12" pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement x="141" y="0" width="138" height="40" uuid="07479a11-9c62-4c7c-973e-52568c7e0766"/>
+                            <box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+                                <pen lineWidth="0.5"/>
+                            </box>
+                            <textElement textAlignment="Center" verticalAlignment="Justified">
+                                <font size="12" pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[$F{shipNumber}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement x="279" y="0" width="138" height="40" uuid="e302879b-2cc5-4fe7-8488-69573647f8cb"/>
+                            <box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+                                <pen lineWidth="0.5"/>
+                            </box>
+                            <textElement textAlignment="Center" verticalAlignment="Justified">
+                                <font size="12" pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[$F{shipName}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement x="417" y="0" width="138" height="40" uuid="3baca883-fd47-47c0-8751-4d92e65c98af"/>
+                            <box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+                                <pen lineWidth="0.5"/>
+                            </box>
+                            <textElement textAlignment="Center" verticalAlignment="Justified">
+                                <font size="12" pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[$F{desc}]]></textFieldExpression>
+                        </textField>
+                    </jr:listContents>
+                </jr:list>
+            </componentElement>
+        </band>
+    </detail>
+    <summary>
+        <band height="358">
+            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+            <staticText>
+                <reportElement x="0" y="10" width="555" height="30" uuid="f2073081-a3bc-447f-955c-e324929866ff"/>
+                <textElement>
+                    <font size="16" pdfFontName="fonts/malgun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[Chart]]></text>
+            </staticText>
+            <lineChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="0" y="40" width="555" height="318" uuid="bee56834-8059-4746-882f-f306f2451dd1"/>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <dataset resetType="Report">
+                        <datasetRun subDataset="chartDataset" uuid="904eea2f-66db-463c-bef1-8e664086e546">
+                            <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{chartDatasource})]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <categorySeries>
+                        <seriesExpression><![CDATA[$F{name}]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{sq}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{val}]]></valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <linePlot>
+                    <plot/>
+                    <categoryAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </valueAxisFormat>
+                </linePlot>
+            </lineChart>
+        </band>
+    </summary>
+</jasperReport>
